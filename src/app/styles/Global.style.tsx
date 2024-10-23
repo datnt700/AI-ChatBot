@@ -22,11 +22,11 @@ export const GlobalStyles = () => (
 );
 
 export const colors = {
-  gray: '#6C727F',
-  grayLight: '#D2D5DA',
-  darkLight: '#282B30',
+  gray: '#B3B7B9',
+  dark2: '#353839',
+  dark1: '#242627',
   dark: '#141718',
-  blue: '#4E80EE',
-  grayDark: '#4D5562',
-  white: '#F9FAFB',
+  purple: '#6466E9',
+  grayDark: '#6D7275',
+  white: '#F6FCFD',
 };
