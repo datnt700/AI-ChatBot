@@ -1,0 +1,39 @@
+name: Next.js CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Run the workflow when code is pushed to the main branch
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code from the repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'  # Use the Node.js version your Next.js app is using
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+  
+      # Step 3: Install dependencies using pnpm
+      - name: Install dependencies
+        run: pnpm install
+
+      # Step 4: Run tests (Optional)
+      - name: Run tests
+        run: pnpm test
+
+      # Step 5: Build the Next.js app
+      - name: Build Next.js app
+        run: pnpm build
