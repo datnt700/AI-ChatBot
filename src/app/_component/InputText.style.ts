@@ -8,12 +8,10 @@ export const inputTextStyle = {
     border: `2px solid ${colors.grayDark}`,
     backgroundColor: colors.dark1,
     borderRadius: '0.5rem',
-    position: 'absolute',
-    bottom: '0',
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    input: {
+    textarea: {
       width: '100%',
       backgroundColor: 'transparent',
       border: 'none',

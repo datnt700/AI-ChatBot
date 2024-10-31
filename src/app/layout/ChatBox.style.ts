@@ -9,6 +9,11 @@ export const chatBoxStyle = {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     height: '20rem',
+    position: 'relative',
+    zIndex: '1',
+  }),
+
+  boxSection: css({
     padding: '1rem',
   }),
   chatBox: css({
@@ -17,11 +22,15 @@ export const chatBoxStyle = {
     borderLeft: `1px solid ${colors.dark2}`,
     maxWidth: '800px',
     height: '600px',
-    margin: '0 auto',
+    margin: '0 auto 2rem',
     backgroundColor: colors.dark1,
     borderRadius: '0.5rem',
     position: 'relative',
-    top: '5rem',
+    top: '1rem',
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   }),
   chatting: css({
     padding: '1.6rem',
