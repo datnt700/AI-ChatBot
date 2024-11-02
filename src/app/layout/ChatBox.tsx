@@ -5,11 +5,11 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import aiIcon from '../../../public/images/logo-small.svg';
 import { InputText } from '../../app/_component/InputText';
+import { useAI } from '../../app/hooks/useAI';
+import { SideBar } from '../../app/layout/SideBar';
 
 import { chatBoxStyle } from './ChatBox.style';
 
-import { useAI } from '@/app/hooks/useAI';
-import { SideBar } from '@/app/layout/SideBar';
 import { Conversation, Conversations } from '@/app/types/Conversations';
 
 export const ChatBox = () => {
@@ -155,7 +155,6 @@ export const ChatBox = () => {
   };
 
   const handleDelete = (e: number) => {
-    console.log('hello', conversations);
     setConversations((prevConversations) =>
       prevConversations.filter((conv) => conv.id !== e)
     );
@@ -165,7 +164,7 @@ export const ChatBox = () => {
     <div css={chatBoxStyle.container}>
       <SideBar
         conversations={conversations}
-        textInputRef={textInputRef}
+        ref={textInputRef}
         handleAddConversation={handleAddConversation}
         handleChooseConversation={handleChooseConversation}
         handleEdit={handleEdit}
@@ -194,7 +193,9 @@ export const ChatBox = () => {
                         width={15}
                         height={15}
                       />
-                      <p css={chatBoxStyle.aiText}>{item.text}</p>
+                      <p css={chatBoxStyle.aiText} id={'response-text'}>
+                        {item.text}
+                      </p>
                     </div>
                   )}
                 </React.Fragment>
@@ -203,7 +204,7 @@ export const ChatBox = () => {
           </div>
 
           <InputText
-            textAreaRef={textAreaRef}
+            ref={textAreaRef}
             handleKeyDown={handleKeyDown}
             handleSend={handleSend}
           />

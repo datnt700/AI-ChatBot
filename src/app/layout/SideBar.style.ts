@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { colors } from '@/app/styles/Global.style';
+import { colors } from '../../app/styles/Global.style';
 
 export const sideBarStyle = {
   container: css({

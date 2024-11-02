@@ -5,13 +5,22 @@ import React from 'react';
 import { InputText } from '../../src/app/_component/InputText';
 
 describe('Input search Component', () => {
-  it('should call onChange when user input', () => {
-    const mockOnChange = vi.fn();
-    render(<InputText onChange={mockOnChange} />);
+  test('should call handleKeyDown when Enter key is pressed', () => {
+    const handleSend = vi.fn();
+    const handleKeyDown = vi.fn();
+    const textAreaRef = { current: null };
 
-    const input = screen.getByPlaceholderText('Ask simple chat.ai anything');
-    fireEvent.change(input, { target: { value: 'China' } });
+    render(
+      <InputText
+        textAreaRef={textAreaRef}
+        handleKeyDown={handleKeyDown}
+        handleSend={handleSend}
+      />
+    );
 
-    expect(mockOnChange).toHaveBeenCalledTimes(1);
+    const textArea = screen.getByPlaceholderText('Ask simple chat.ai anything');
+    fireEvent.keyDown(textArea, { key: 'Enter', code: 'Enter' });
+
+    expect(handleKeyDown).toHaveBeenCalled();
   });
 });
