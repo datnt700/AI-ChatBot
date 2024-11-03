@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import Image from 'next/image';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import aiIcon from '../../../public/images/logo-small.svg';
 import { ChatInput } from '../../app/_component/ChatInput';
