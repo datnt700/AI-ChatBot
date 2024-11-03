@@ -8,8 +8,8 @@
 module.exports = {
   root: true,
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
     },
@@ -19,45 +19,46 @@ module.exports = {
     commonjs: true,
     es6: true,
   },
-  ignorePatterns: ["!**/.server", "!**/.client"],
+  ignorePatterns: ['!**/.server', '!**/.client'],
 
   // Base config
-  extends: ["eslint:recommended"],
+  extends: ['eslint:recommended'],
 
   overrides: [
     // React
     {
-      files: ["**/*.{js,jsx,ts,tsx}"],
-      plugins: ["react", "jsx-a11y", "@typescript-eslint", "prettier"],
+      files: ['**/*.{js,jsx,ts,tsx}'],
+      plugins: ['react', 'jsx-a11y', '@typescript-eslint', 'prettier'],
       extends: [
-        "plugin:react/jsx-runtime",
-        "plugin:jsx-a11y/recommended",
-        "eslint:recommended", // Uses the recommended rules from ESLint
-        "plugin:react/recommended", // Uses the recommended rules from eslint-plugin-react
-        "plugin:react-hooks/recommended", // Rules for React hooks
-        "plugin:import/errors", // Helps with import/export errors
-        "plugin:import/warnings",
-        "plugin:import/typescript", // Ensures compatibility with TypeScript
-        "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint
-        "prettier", // Disables ESLint rules that would conflict with Prettier
-        "plugin:prettier/recommended" // Integrates Prettier as an ESLint rule
+        'plugin:react/jsx-runtime',
+        'plugin:jsx-a11y/recommended',
+        'eslint:recommended', // Uses the recommended rules from ESLint
+        'plugin:react/recommended', // Uses the recommended rules from eslint-plugin-react
+        'plugin:react-hooks/recommended', // Rules for React hooks
+        'plugin:import/errors', // Helps with import/export errors
+        'plugin:import/warnings',
+        'plugin:import/typescript', // Ensures compatibility with TypeScript
+        'plugin:@typescript-eslint/recommended', // Uses the recommended rules from @typescript-eslint
+        'prettier', // Disables ESLint rules that would conflict with Prettier
+        'plugin:prettier/recommended', // Integrates Prettier as an ESLint rule
       ],
       rules: {
-        "prettier/prettier": "error", // Prettier as an ESLint rule, set to throw errors on failure
-        "react/react-in-jsx-scope": "off", // Not required in React 17+
-        "@typescript-eslint/explicit-module-boundary-types": "off", // Disable rule for return types on functions
-        "import/order": ["error", { "newlines-between": "always" }] // Enforce ordering of imports
+        'prettier/prettier': 'error', // Prettier as an ESLint rule, set to throw errors on failure
+        'react/react-in-jsx-scope': 'off', // Not required in React 17+
+        '@typescript-eslint/explicit-module-boundary-types': 'off', // Disable rule for return types on functions
+        'import/order': ['error', { 'newlines-between': 'always' }], // Enforce ordering of imports
+        'react/no-unknown-property': ['error', { ignore: ['css'] }],
       },
       settings: {
         react: {
-          version: "detect",
+          version: 'detect',
         },
-        formComponents: ["Form"],
+        formComponents: ['Form'],
         linkComponents: [
-          { name: "Link", linkAttribute: "to" },
-          { name: "NavLink", linkAttribute: "to" },
+          { name: 'Link', linkAttribute: 'to' },
+          { name: 'NavLink', linkAttribute: 'to' },
         ],
-        "import/resolver": {
+        'import/resolver': {
           typescript: {},
         },
       },
@@ -65,14 +66,14 @@ module.exports = {
 
     // Typescript
     {
-      files: ["**/*.{ts,tsx}"],
-      plugins: ["@typescript-eslint", "import"],
-      parser: "@typescript-eslint/parser",
+      files: ['**/*.{ts,tsx}'],
+      plugins: ['@typescript-eslint', 'import'],
+      parser: '@typescript-eslint/parser',
       settings: {
-        "import/internal-regex": "^~/",
-        "import/resolver": {
+        'import/internal-regex': '^~/',
+        'import/resolver': {
           node: {
-            extensions: [".ts", ".tsx"],
+            extensions: ['.ts', '.tsx'],
           },
           typescript: {
             alwaysTryTypes: true,
@@ -80,15 +81,15 @@ module.exports = {
         },
       },
       extends: [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:import/recommended",
-        "plugin:import/typescript",
+        'plugin:@typescript-eslint/recommended',
+        'plugin:import/recommended',
+        'plugin:import/typescript',
       ],
     },
 
     // Node
     {
-      files: [".eslintrc.cjs"],
+      files: ['.eslintrc.cjs'],
       env: {
         node: true,
       },
