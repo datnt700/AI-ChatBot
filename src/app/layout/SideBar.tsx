@@ -43,7 +43,7 @@ export const SideBar = forwardRef<HTMLInputElement, sideBarProps>(
   ) => {
     const [isActive, setIsActive] = useState(false);
 
-    const handleClick = () => {
+    const toggleSideBar = () => {
       setIsActive((e) => !e);
     };
 
@@ -60,7 +60,10 @@ export const SideBar = forwardRef<HTMLInputElement, sideBarProps>(
               height={80}
               css={sideBarStyle.logo}
             />
-            <button css={sideBarStyle.buttonSideBarClose} onClick={handleClick}>
+            <button
+              css={sideBarStyle.buttonSideBarClose}
+              onClick={toggleSideBar}
+            >
               <Image
                 src={sidebar}
                 alt={'sidebar'}
@@ -150,7 +153,7 @@ export const SideBar = forwardRef<HTMLInputElement, sideBarProps>(
           </div>
         </div>
 
-        <button css={sideBarStyle.buttonSideBar} onClick={handleClick}>
+        <button css={sideBarStyle.buttonSideBar} onClick={toggleSideBar}>
           <Image
             src={sidebar}
             alt={'sidebar'}

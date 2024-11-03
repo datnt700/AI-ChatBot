@@ -33,16 +33,13 @@ export const ChatBox = () => {
   const [text, setText] = useState('');
   const [editing, setEditing] = useState(false);
 
-  const updateConversationMessages = useCallback(
-    (updatedContent: Conversation) => {
-      setConversations((prevConversations) =>
-        prevConversations.map((conv) =>
-          conv.id === updatedContent.id ? updatedContent : conv
-        )
-      );
-    },
-    []
-  );
+  const updateConversationMessages = (updatedContent: Conversation) => {
+    setConversations((prevConversations) =>
+      prevConversations.map((conv) =>
+        conv.id === updatedContent.id ? updatedContent : conv
+      )
+    );
+  };
 
   const handleClick = async (inputText: string) => {
     const userMessage = { sender: 'user' as const, text: inputText };
