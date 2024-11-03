@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import Image from 'next/image';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import aiIcon from '../../../public/images/logo-small.svg';
-import { InputText } from '../../app/_component/InputText';
+import { ChatInput } from '../../app/_component/ChatInput';
 import { useAI } from '../../app/hooks/useAI';
 import { SideBar } from '../../app/layout/SideBar';
 
@@ -33,6 +33,17 @@ export const ChatBox = () => {
   const [text, setText] = useState('');
   const [editing, setEditing] = useState(false);
 
+  const updateConversationMessages = useCallback(
+    (updatedContent: Conversation) => {
+      setConversations((prevConversations) =>
+        prevConversations.map((conv) =>
+          conv.id === updatedContent.id ? updatedContent : conv
+        )
+      );
+    },
+    []
+  );
+
   const handleClick = async (inputText: string) => {
     const userMessage = { sender: 'user' as const, text: inputText };
     const loadingBotMessage = { sender: 'bot' as const, text: 'Loading...' };
@@ -45,12 +56,7 @@ export const ChatBox = () => {
       ];
       const updatedContent = { ...content, messages: updatedMessages };
       setContent(updatedContent);
-
-      setConversations((prevConversations) =>
-        prevConversations.map((conv) =>
-          conv.id === content.id ? updatedContent : conv
-        )
-      );
+      updateConversationMessages(updatedContent);
     }
     const requestData = { inputs: inputText };
     try {
@@ -91,8 +97,8 @@ export const ChatBox = () => {
   }, [conversations]);
 
   const handleChooseConversation = (e: number) => {
-    const findConversation = conversations.find((item) => e === item.id);
-    setContent(findConversation);
+    const chosenConversation = conversations.find((item) => e === item.id);
+    setContent(chosenConversation);
   };
 
   const handleSend = () => {
@@ -106,35 +112,25 @@ export const ChatBox = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
+      e.stopPropagation();
       handleSend();
     }
-  };
-
-  const handleClickAddConversation = (inputText: string) => {
-    const newId =
-      conversations.length > 0
-        ? conversations[conversations.length - 1].id + 1
-        : 1;
-
-    setConversations((prevConversations) => [
-      ...prevConversations,
-      {
-        id: newId,
-        title: inputText,
-        messages: [
-          { sender: 'user', text: '' },
-          { sender: 'bot', text: '' },
-        ],
-      },
-    ]);
   };
 
   const handleAddConversation = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       if (textInputRef.current) {
-        const text = textInputRef.current.value;
-        handleClickAddConversation(text);
+        const inputText = textInputRef.current.value;
+        const newConversation: Conversation = {
+          id:
+            conversations.length > 0
+              ? conversations[conversations.length - 1].id + 1
+              : 1,
+          title: inputText,
+          messages: [],
+        };
+        setConversations([...conversations, newConversation]);
         textInputRef.current.value = '';
       }
     }
@@ -203,7 +199,7 @@ export const ChatBox = () => {
             </div>
           </div>
 
-          <InputText
+          <ChatInput
             ref={textAreaRef}
             handleKeyDown={handleKeyDown}
             handleSend={handleSend}

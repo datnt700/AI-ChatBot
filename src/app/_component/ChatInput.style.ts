@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 import { colors } from '../styles/Global.style';
 
-export const inputTextStyle = {
+export const chatInputStyle = {
   container: css({
     padding: '1rem 0.8rem',
     border: `2px solid ${colors.grayDark}`,

@@ -12,16 +12,23 @@ test.describe('SideBar component', () => {
   });
 });
 
-test.describe('ChatBox component', () => {
-  test('should display some response text in <p> tag with id="response-text" after input', async ({
-    page,
-  }) => {
-    await page.goto('http://localhost:3000');
+test('should send message when Enter key is pressed', async ({ page }) => {
+  await page.route(
+    'https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill',
+    (route) => {
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([{ generated_text: 'Response from bot' }]),
+      });
+    }
+  );
 
-    const input = page.getByPlaceholder('Ask simple chat.ai anything');
-    await input.fill('Hello AI');
-    await input.press('Enter');
-    await page.waitForTimeout(3000);
-    await expect(page.locator('#response-text')).toHaveText(/.+/); // Kiểm tra <p> chứa bất kỳ văn bản nào
-  });
+  await page.goto('http://localhost:3000');
+
+  const textArea = page.getByPlaceholder('Ask simple chat.ai anything');
+  await textArea.fill('Hello');
+  await textArea.press('Enter');
+
+  await expect(page.locator('#response-text')).toHaveText(/.+/);
 });

@@ -2,17 +2,17 @@
 import { Icon } from '@iconify/react';
 import React, { forwardRef } from 'react';
 
-import { inputTextStyle } from './InputText.style';
+import { chatInputStyle } from './ChatInput.style';
 
 interface InputTextProps {
   handleKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   handleSend: () => void;
 }
 
-export const InputText = forwardRef<HTMLTextAreaElement, InputTextProps>(
+export const ChatInput = forwardRef<HTMLTextAreaElement, InputTextProps>(
   ({ handleKeyDown, handleSend }, ref) => {
     return (
-      <div css={inputTextStyle.container}>
+      <div css={chatInputStyle.container}>
         <textarea
           ref={ref}
           placeholder={'Ask simple chat.ai anything'}
@@ -30,4 +30,4 @@ export const InputText = forwardRef<HTMLTextAreaElement, InputTextProps>(
   }
 );
 
-InputText.displayName = 'InputText';
+ChatInput.displayName = 'ChatInput';
