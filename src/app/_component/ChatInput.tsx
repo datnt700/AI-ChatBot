@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { Icon } from '@iconify/react';
 import React, { forwardRef } from 'react';
 
 import { chatInputStyle } from './ChatInput.style';
+import { ButtonIcon } from './ButtonIcon';
 
 interface InputTextProps {
   handleKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
@@ -18,13 +18,7 @@ export const ChatInput = forwardRef<HTMLTextAreaElement, InputTextProps>(
           placeholder={'Ask simple chat.ai anything'}
           onKeyDown={handleKeyDown}
         ></textarea>
-        <Icon
-          icon="ph:paper-plane-right-duotone"
-          width="1.2em"
-          height="1.2em"
-          style={{ color: '#8f8f8f' }}
-          onClick={handleSend}
-        />
+        <ButtonIcon onClick={handleSend} />
       </div>
     );
   }
