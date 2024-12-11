@@ -26,7 +26,17 @@ export const ChatBox = () => {
       ],
     },
   ]);
-  const [content, setContent] = useState<Conversation | undefined>();
+  const [content, setContent] = useState<Conversation | undefined>({
+    id: 1,
+    title: 'How are you?',
+    messages: [
+      { sender: 'user', text: 'Hey my name is Clara! How are you?' },
+      {
+        sender: 'bot',
+        text: 'Hi, Clara. Im doing well. I just got back from the gym. How about yourself?',
+      },
+    ],
+  });
   const { mutateAsync: createResponseFn } = useAI();
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const textInputRef = useRef<HTMLInputElement | null>(null);
