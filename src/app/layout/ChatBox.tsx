@@ -43,13 +43,13 @@ export const ChatBox = () => {
   const [text, setText] = useState('');
   const [editing, setEditing] = useState(false);
 
-  const updateConversationMessages = (updatedContent: Conversation) => {
-    setConversations((prevConversations) =>
-      prevConversations.map((conv) =>
-        conv.id === updatedContent.id ? updatedContent : conv
-      )
-    );
-  };
+  // const updateConversationMessages = (updatedContent: Conversation) => {
+  //   setConversations((prevConversations) =>
+  //     prevConversations.map((conv) =>
+  //       conv.id === updatedContent.id ? updatedContent : conv
+  //     )
+  //   );
+  // };
 
   const handleClick = async (inputText: string) => {
     const userMessage = { sender: 'user' as const, text: inputText };
@@ -62,26 +62,29 @@ export const ChatBox = () => {
         loadingBotMessage,
       ];
       const updatedContent = { ...content, messages: updatedMessages };
+
       setContent(updatedContent);
-      updateConversationMessages(updatedContent);
     }
+
     const requestData = { inputs: inputText };
     try {
       const result = await createResponseFn(requestData);
       const botResponse = result[0].generated_text;
 
       setContent((prevContent) => {
-        if (!prevContent) return undefined;
+        if (!prevContent) return prevContent; // Tránh cập nhật khi không có content
+
         const updatedMessages = prevContent.messages.map((msg) =>
           msg.text === 'Loading...' && msg.sender === 'bot'
             ? { ...msg, text: botResponse }
             : msg
         );
+
         return { ...prevContent, messages: updatedMessages };
       });
 
-      setConversations((prevConversations) =>
-        prevConversations.map((conv) =>
+      setConversations((prevConversations) => {
+        return prevConversations.map((conv) =>
           conv.id === content?.id
             ? {
                 ...conv,
@@ -92,15 +95,17 @@ export const ChatBox = () => {
                 ),
               }
             : conv
-        )
-      );
+        );
+      });
     } catch (error) {
       console.error('Error creating response:', error);
     }
   };
 
   useEffect(() => {
-    localStorage.setItem('conversation', JSON.stringify(conversations));
+    if (conversations.length) {
+      localStorage.setItem('conversation', JSON.stringify(conversations));
+    }
   }, [conversations]);
 
   const handleChooseConversation = (e: number) => {
@@ -119,7 +124,6 @@ export const ChatBox = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      e.stopPropagation();
       handleSend();
     }
   };
